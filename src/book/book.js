@@ -3,6 +3,10 @@ function Book(title, author, pageQty) {
     this.author = author;
     this.pageQty = pageQty;
     this.isRead = false;
+
+    Book.fromInput = function(...input) {
+        return new Book(input[0], input[1], input[2]);
+    }
 }
 
 Book.prototype.info = function(){
@@ -12,8 +16,9 @@ Book.prototype.info = function(){
 };
 
 function addBookToLibrary(book,library){
-
+    return [...library] + [book]
 }
 module.exports = {
-    Book: Book
+    Book: Book,
+    addBookToLibrary: addBookToLibrary
 };
