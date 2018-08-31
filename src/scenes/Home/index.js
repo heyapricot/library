@@ -3,7 +3,6 @@ function Book(title, author, pageQty) {
     this.author = author;
     this.pageQty = pageQty;
     this.isRead = false;
-
     Book.fromInput = function(...input) {
         return new Book(input[0], input[1], input[2]);
     }
@@ -15,22 +14,38 @@ Book.prototype.info = function(){
     return this.title + " by " + this.author + ", " + pageQty + " pages, " + isRead;
 };
 
-function BootstrapTable(){
+function BootstrapTable(headers){
     this.table = document.createElement('table');
-    this.head = this.table.createTHead();
+    this.headers = headers;
     this.body = document.createElement('tbody');
+    this.footer = this.table.createTFoot();
     this.rows = this.table.rows;
+    this.HTMLhead = this.table.createTHead();
     this.initialize();
 }
 
 BootstrapTable.prototype = {
     initialize: function(){
         this.table.classList.toggle('table');
-        this.head.insertRow();
+        this.HTMLhead.insertRow();
         this.table.appendChild(this.body);
+        this.setColumnHeaders(this.headers);
+        this.renderRowPlaceholder();
     },
     addRow: function(HTMLRow){
         this.body.appendChild(HTMLRow);
+    },
+    renderRowPlaceholder: function(){
+        let rowPlaceHolder = document.createElement('tr');
+        this.headers.forEach((header)=>{
+            let input = document.createElement('input');
+            input.classList.toggle('form-control');
+            input.setAttribute('placeholder', header);
+            let cell = document.createElement('td');
+            cell.appendChild(input);
+            rowPlaceHolder.appendChild(cell);
+        });
+        this.footer.appendChild(rowPlaceHolder);
     },
     rowFromArray: function (array) {
         let row = this.body.insertRow();
@@ -46,7 +61,7 @@ BootstrapTable.prototype = {
             const th = document.createElement('th');
             th.setAttribute('scope','col');
             th.textContent = colHeader;
-            this.head.rows.item(0).appendChild(th);
+            this.HTMLhead.rows.item(0).appendChild(th);
         });
     },
 };
@@ -67,14 +82,13 @@ function bookToHTMLTableRow(book){
 //Main program
 const mainSection = document.querySelector('#main');
 const headers = ["Title", "Author", "# of Pages", "is Read?"];
-let btable = new BootstrapTable();
+let btable = new BootstrapTable(headers);
 let library = [
     new Book("Turtles All The Way Down", "John Green", 298),
     new Book("The Fault in Our Stars", "John Green", 300)
 ];
 
 btable.setTableClass('table-dark');
-btable.setColumnHeaders(headers);
 library.forEach((book)=>{btable.addRow(bookToHTMLTableRow(book))});
 
 mainSection.appendChild(btable.table);
