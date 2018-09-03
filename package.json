@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "book": "^1.3.3",
+    "v8-compile-cache": "^2.0.2"
+  },
+  "name": "library",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/heyalvaro/library.git"
+  },
+  "author": "Alvaro Sanchez Diaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heyalvaro/library/issues"
+  },
+  "homepage": "https://github.com/heyalvaro/library#readme",
+  "description": "",
+  "devDependencies": {
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
+  }
+}
