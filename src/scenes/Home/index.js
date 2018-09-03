@@ -45,6 +45,17 @@ BootstrapTable.prototype = {
             cell.appendChild(input);
             rowPlaceHolder.appendChild(cell);
         });
+
+        let cell = document.createElement('td');
+        let button = document.createElement('button');
+        button.classList.toggle('btn');
+        button.classList.toggle('btn-success');
+        button.textContent = "+";
+        button.addEventListener('click', ()=>{
+           console.log("Lolo");
+        });
+        cell.appendChild(button);
+        rowPlaceHolder.appendChild(cell);
         this.footer.appendChild(rowPlaceHolder);
     },
     rowFromArray: function (array) {
@@ -63,6 +74,9 @@ BootstrapTable.prototype = {
             th.textContent = colHeader;
             this.HTMLhead.rows.item(0).appendChild(th);
         });
+        const th = document.createElement('th');
+        th.setAttribute('scope','col');
+        this.HTMLhead.rows.item(0).appendChild(th);
     },
 };
 
