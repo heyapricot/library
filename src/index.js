@@ -1,5 +1,5 @@
-const {Book, addBookToLibrary, bookToHTMLTableRow} = require("src/components/Book/book");
-const {Table} = require('src/components/Table/table');
+const {Book, addBookToLibrary, bookToHTMLTableRow} = require("./components/Book/book");
+const {BootstrapTable} = require('./components/Table/table');
 
 const mainSection = document.querySelector('#main');
 const headers = ["Title", "Author", "# of Pages", "is Read?"];

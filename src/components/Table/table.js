@@ -1,3 +1,13 @@
+function BootstrapTable(headers){
+    this.table = document.createElement('table');
+    this.headers = headers;
+    this.body = document.createElement('tbody');
+    this.footer = this.table.createTFoot();
+    this.rows = this.table.rows;
+    this.HTMLhead = this.table.createTHead();
+    this.initialize();
+}
+
 BootstrapTable.prototype = {
     initialize: function(){
         this.table.classList.toggle('table');

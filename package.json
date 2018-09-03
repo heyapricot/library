@@ -5,7 +5,7 @@
   },
   "name": "library",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
@@ -20,9 +20,9 @@
     "url": "https://github.com/heyalvaro/library/issues"
   },
   "homepage": "https://github.com/heyalvaro/library#readme",
-  "description": "",
   "devDependencies": {
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0"
-  }
+  },
+  "description": ""
 }
