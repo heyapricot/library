@@ -4,7 +4,7 @@ function RowPlaceholder(headers, onClickFunction){
     this.headers = headers;
     this.HTML = document.createElement('tr');
     this.inputFields = [];
-    this.onClick = onClickFunction;
+    this.button = new RowButton("+", ["btn", "btn-success"]);
     this.initialize();
 }
 
@@ -12,7 +12,7 @@ RowPlaceholder.prototype = {
     initialize: function(){
         this.headers.forEach((header)=>{ this.inputFields.push(this.renderInputField(header))});
         this.inputFields.forEach((inputField)=>{this.renderCell(inputField)});
-        this.renderCell(new RowButton("+", ["btn", "btn-success"], this.onClick).HTML);
+        this.renderCell(this.button.HTML);
     },
     createRow: function(array){
         let row = document.createElement('tr');

@@ -8,6 +8,9 @@ RowButton.prototype = {
     initialize: function(cssClass, clickFunction){
         this.setCSS(cssClass);
         this.HTML.textContent = this.text;
+        this.setClickFunction(clickFunction);
+    },
+    setClickFunction: function(clickFunction){
         this.HTML.addEventListener('click', clickFunction);
     },
     setCSS: function(array){

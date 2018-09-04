@@ -16,7 +16,10 @@ BootstrapTable.prototype = {
         this.HTMLhead.insertRow();
         this.table.appendChild(this.body);
         this.setColumnHeaders(this.headers);
-        this.renderFooter(new RowPlaceholder(this.headers).HTML)
+        let rowP = new RowPlaceholder(this.headers);
+        let buttonFunction = function(){ this.addRow(rowP.createRow(rowP.fieldContent(rowP.inputFields))) };
+        rowP.button.setClickFunction(buttonFunction.bind(this));
+        this.renderFooter(rowP.HTML);
     },
     addRow: function(HTMLRow){
         this.body.appendChild(HTMLRow);
