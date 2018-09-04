@@ -17,7 +17,10 @@ BootstrapTable.prototype = {
         this.table.appendChild(this.body);
         this.setColumnHeaders(this.headers);
         let rowP = new RowPlaceholder(this.headers);
-        let buttonFunction = function(){ this.addRow(rowP.createRow(rowP.fieldContent(rowP.inputFields))) };
+        let buttonFunction = function(){
+            let inputArray = rowP.fieldContent(rowP.inputFields);
+            if (!inputArray.includes("")) { this.addRow(rowP.createRow(inputArray)) };
+        };
         rowP.button.setClickFunction(buttonFunction.bind(this));
         this.renderFooter(rowP.HTML);
     },
