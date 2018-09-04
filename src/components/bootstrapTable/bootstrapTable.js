@@ -1,3 +1,5 @@
+const {RowPlaceholder} = require('./components/rowPlaceholder/rowPlaceholder');
+
 function BootstrapTable(headers){
     this.table = document.createElement('table');
     this.headers = headers;
@@ -14,33 +16,13 @@ BootstrapTable.prototype = {
         this.HTMLhead.insertRow();
         this.table.appendChild(this.body);
         this.setColumnHeaders(this.headers);
-        this.renderRowPlaceholder();
+        this.renderFooter(new RowPlaceholder(this.headers).HTML)
     },
     addRow: function(HTMLRow){
         this.body.appendChild(HTMLRow);
     },
-    renderRowPlaceholder: function(){
-        let rowPlaceHolder = document.createElement('tr');
-        this.headers.forEach((header)=>{
-            let input = document.createElement('input');
-            input.classList.toggle('form-control');
-            input.setAttribute('placeholder', header);
-            let cell = document.createElement('td');
-            cell.appendChild(input);
-            rowPlaceHolder.appendChild(cell);
-        });
-
-        let cell = document.createElement('td');
-        let button = document.createElement('button');
-        button.classList.toggle('btn');
-        button.classList.toggle('btn-success');
-        button.textContent = "+";
-        button.addEventListener('click', ()=>{
-            console.log("Lolo");
-        });
-        cell.appendChild(button);
-        rowPlaceHolder.appendChild(cell);
-        this.footer.appendChild(rowPlaceHolder);
+    renderFooter: function(HTMLRow){
+      this.footer.appendChild(HTMLRow);
     },
     rowFromArray: function (array) {
         let row = this.body.insertRow();
