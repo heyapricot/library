@@ -7,6 +7,7 @@ function BootstrapTable(headers){
     this.footer = this.table.createTFoot();
     this.rows = this.table.rows;
     this.HTMLhead = this.table.createTHead();
+    this.rowPlaceholder = new RowPlaceholder(this.headers);
     this.initialize();
 }
 
@@ -16,13 +17,12 @@ BootstrapTable.prototype = {
         this.HTMLhead.insertRow();
         this.table.appendChild(this.body);
         this.setColumnHeaders(this.headers);
-        let rowP = new RowPlaceholder(this.headers);
         let buttonFunction = function(){
-            let inputArray = rowP.fieldContent(rowP.inputFields);
-            if (!inputArray.includes("")) { this.addRow(rowP.createRow(inputArray)) };
+            let inputArray = this.rowPlaceholder.fieldContent(this.rowPlaceholder.inputFields);
+            if (!inputArray.includes("")) { this.addRow(this.rowPlaceholder.createRow(inputArray)) }
         };
-        rowP.button.setClickFunction(buttonFunction.bind(this));
-        this.renderFooter(rowP.HTML);
+        this.rowPlaceholder.button.setClickFunction(buttonFunction.bind(this));
+        this.renderFooter(this.rowPlaceholder.HTML);
     },
     addRow: function(HTMLRow){
         this.body.appendChild(HTMLRow);
