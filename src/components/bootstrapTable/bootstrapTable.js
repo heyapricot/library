@@ -33,7 +33,7 @@ BootstrapTable.prototype = {
     attachButton: function(HTMLRow){
         let row = HTMLRow;
         let cell = document.createElement('td');
-        let button = new RowButton("D", ["btn", "btn-danger"]);
+        let button = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
         cell.appendChild(button.HTML);
         row.appendChild(cell);
         return row;
