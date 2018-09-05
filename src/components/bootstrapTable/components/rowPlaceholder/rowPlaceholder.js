@@ -1,10 +1,10 @@
 const {RowButton} = require('../rowButton/rowButton');
 
-function RowPlaceholder(headers, onClickFunction){
+function RowPlaceholder(headers){
     this.headers = headers;
     this.HTML = document.createElement('tr');
     this.inputFields = [];
-    this.button = new RowButton("+", ["btn", "btn-success"]);
+    this.button = new RowButton(["fas", "fa-plus"], ["btn", "btn-success"]);
     this.initialize();
 }
 
