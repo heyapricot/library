@@ -1,14 +1,18 @@
-function RowButton(text, cssClass, clickFunction){
+function RowButton(fontAwesomeClassArray, cssClassArray, clickFunction){
     this.HTML = document.createElement('button');
-    this.text = text;
-    this.initialize(cssClass, clickFunction);
+    this.initialize(fontAwesomeClassArray, cssClassArray, clickFunction);
 }
 
 RowButton.prototype = {
-    initialize: function(cssClass, clickFunction){
-        this.setCSS(cssClass);
-        this.HTML.textContent = this.text;
+    initialize: function(fontAwesomeClassArray, cssClassArray, clickFunction){
+        this.setCSS(cssClassArray);
+        this.HTML.appendChild(this.createIcon(fontAwesomeClassArray));
         this.setClickFunction(clickFunction);
+    },
+    createIcon: function(fontAwesomeClassArray){
+        let icon = document.createElement('i');
+        fontAwesomeClassArray.forEach((faClass)=>{icon.classList.toggle(faClass)});
+        return icon;
     },
     setClickFunction: function(clickFunction){
         this.HTML.addEventListener('click', clickFunction);
