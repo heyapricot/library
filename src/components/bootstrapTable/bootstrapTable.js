@@ -1,5 +1,5 @@
+const {Row} = require('./components/row/row');
 const {RowPlaceholder} = require('./components/rowPlaceholder/rowPlaceholder');
-const {RowButton} = require('./components/rowButton/rowButton');
 
 function BootstrapTable(headers){
     this.table = document.createElement('table');
@@ -26,17 +26,11 @@ BootstrapTable.prototype = {
         this.renderFooter(this.rowPlaceholder.HTML);
     },
     addRow: function(HTMLRow){
-        let row = HTMLRow;
-        row = this.attachButton(row);
-        this.body.appendChild(row);
+        let row = new Row(HTMLRow, this.table);
+        this.body.appendChild(row.HTML);
     },
-    attachButton: function(HTMLRow){
-        let row = HTMLRow;
-        let cell = document.createElement('td');
-        let button = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
-        cell.appendChild(button.HTML);
-        row.appendChild(cell);
-        return row;
+    deleteRow: function(index){
+        this.HTML.deleteRow(index);
     },
     renderFooter: function(HTMLRow){
       this.footer.appendChild(HTMLRow);
