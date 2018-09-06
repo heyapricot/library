@@ -8,6 +8,7 @@ function BootstrapTable(headers){
     this.footer = this.table.createTFoot();
     this.rows = this.table.rows;
     this.HTMLhead = this.table.createTHead();
+    this.rowFunction = NaN;
     this.rowPlaceholder = new RowPlaceholder(this.headers);
     this.lastDeletedRowIndex = NaN;
     this.initialize();
@@ -24,6 +25,9 @@ BootstrapTable.prototype = {
     },
     addRow: function(HTMLRow){
         let row = new Row(HTMLRow, this);
+        if (this.rowFunction != NaN){
+            row.button.setClickFunction(this.rowFunction)
+        }
         this.body.appendChild(row.HTML);
     },
     deleteRow: function(index){

@@ -1,4 +1,4 @@
-const {Book, addBookToLibrary, bookToHTMLTableRow} = require("./components/book/book");
+const {Book, addBookToLibrary, bookToHTMLTableRow, deleteBookFromLibrary} = require("./components/book/book");
 const {BootstrapTable} = require('./components/bootstrapTable/bootstrapTable');
 
 const mainSection = document.querySelector('#main');
@@ -19,6 +19,11 @@ let buttonFunction = function(){
     }
 };
 btable.rowPlaceholder.button.setClickFunction(buttonFunction.bind(btable));
+let del = function(){
+    library = deleteBookFromLibrary(btable.lastDeletedRowIndex,library);
+    console.log(library);
+};
+btable.rowFunction = del;
 
 library.forEach((book)=>{btable.addRow(bookToHTMLTableRow(book))});
 

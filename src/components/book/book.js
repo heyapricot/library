@@ -18,6 +18,12 @@ function addBookToLibrary(book,library){
     return [...library] + [book]
 }
 
+function deleteBookFromLibrary(index,library){
+    let output = [...library];
+    output.splice(index,1);
+    return output;
+}
+
 function bookToHTMLTableRow(book){
     let row = document.createElement('tr');
     Object.values(book).forEach((bookProperty)=>{
@@ -30,5 +36,6 @@ function bookToHTMLTableRow(book){
 module.exports = {
     Book: Book,
     addBookToLibrary: addBookToLibrary,
-    bookToHTMLTableRow: bookToHTMLTableRow
+    bookToHTMLTableRow: bookToHTMLTableRow,
+    deleteBookFromLibrary: deleteBookFromLibrary
 };
