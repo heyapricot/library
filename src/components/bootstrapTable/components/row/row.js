@@ -1,9 +1,9 @@
 const {RowButton} = require('../rowButton/rowButton');
 
-function Row(HTMLRow = document.createElement('tr'), parentHTMLTable, iconClass = ["fas", "fa-trash"]){
+function Row(HTMLRow = document.createElement('tr'), parentTable, iconClass = ["fas", "fa-trash"]){
     this.button = new RowButton(iconClass, ["btn", "btn-danger"]);
     this.HTML = HTMLRow;
-    this.parentHTMLTable = parentHTMLTable;
+    this.parentTable = parentTable;
     this.inititalize();
 }
 
@@ -18,8 +18,19 @@ Row.prototype = {
         cell.appendChild(button);
         this.HTML.appendChild(cell);
     },
+    getIndex: function(){
+        let index = 0;
+        let child = this.HTML;
+        while((child = child.previousSibling) != null)
+            index++;
+        return index;
+    },
     removeFromTable: function (){
-        this.parentHTMLTable.deleteRow(this.HTML.rowIndex);
+        let index = this.getIndex();
+        if (this.parentTable != NaN){
+            this.parentTable.lastDeletedRowIndex = index;
+        }
+        this.HTML.parentNode.removeChild(this.HTML);
     }
 };
 

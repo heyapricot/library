@@ -9,6 +9,7 @@ function BootstrapTable(headers){
     this.rows = this.table.rows;
     this.HTMLhead = this.table.createTHead();
     this.rowPlaceholder = new RowPlaceholder(this.headers);
+    this.lastDeletedRowIndex = NaN;
     this.initialize();
 }
 
@@ -22,7 +23,7 @@ BootstrapTable.prototype = {
         this.renderFooter(this.rowPlaceholder.HTML);
     },
     addRow: function(HTMLRow){
-        let row = new Row(HTMLRow, this.table);
+        let row = new Row(HTMLRow, this);
         this.body.appendChild(row.HTML);
     },
     deleteRow: function(index){
