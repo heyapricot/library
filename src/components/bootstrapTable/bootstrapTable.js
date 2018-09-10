@@ -2,63 +2,59 @@ const {Row} = require('./components/row/row');
 const {RowPlaceholder} = require('./components/rowPlaceholder/rowPlaceholder');
 
 function BootstrapTable(headers){
-    this.table = document.createElement('table');
-    this.headers = headers;
-    this.body = document.createElement('tbody');
-    this.footer = this.table.createTFoot();
-    this.rows = this.table.rows;
-    this.HTMLhead = this.table.createTHead();
-    this.rowFunction = NaN;
-    this.rowPlaceholder = new RowPlaceholder(this.headers);
-    this.lastDeletedRowIndex = NaN;
+    this.HTML = document.createElement('table');
+    this.header = {
+        content: [...headers],
+        HTML: this.HTML.createTHead()
+    };
+    this.body = {
+        content: [],
+        HTML: this.HTML.createTBody(),
+    };
+    this.footer ={
+        content: {},
+        HTML: this.HTML.createTFoot()
+    };
     this.initialize();
 }
 
 BootstrapTable.prototype = {
     initialize: function(){
-        this.table.classList.toggle('table');
-        this.HTMLhead.insertRow();
-        this.table.appendChild(this.body);
-        this.setColumnHeaders(this.headers);
-        this.rowPlaceholder.button.setClickFunction(this.newRowFromPlaceholder.bind(this));
-        this.renderFooter(this.rowPlaceholder.HTML);
+        this.setupTable();
+        this.setupHeader();
+        this.setupFooter();
     },
-    addRow: function(HTMLRow){
-        let row = new Row(HTMLRow, this);
-        if (this.rowFunction != NaN){
-            row.button.setClickFunction(this.rowFunction)
-        }
-        this.body.appendChild(row.HTML);
+    addRow: function(parent){
+        let row = new Row(this);
+        parent.HTML.appendChild(row.HTML);
     },
     deleteRow: function(index){
         this.HTML.deleteRow(index);
     },
+    setupFooter: function(){
+        let footer = this.footer;
+        let rp = footer.content.rowPlaceholder = new RowPlaceholder(this.header.content);
+        footer.HTML.appendChild(rp.HTML);
+    },
+    setupHeader: function(){
+        let row = document.createElement('tr');
+        let headerContent = [...this.header.content];
+        headerContent.forEach((headerText)=>{
+            let cell = document.createElement('th');
+            cell.setAttribute('scope','col');
+            cell.textContent = headerText;
+            row.appendChild(cell);
+        });
+        this.header.HTML.appendChild(row);
+    },
+    setupTable: function(){
+        ["table", "table-dark"].forEach((cssClass)=>{
+            this.HTML.classList.toggle(cssClass);
+        });
+    },
     newRowFromPlaceholder: function(){
         let inputArray = this.rowPlaceholder.fieldContent(this.rowPlaceholder.inputFields);
         if (!inputArray.includes("")) { this.addRow(this.rowPlaceholder.createRow(inputArray)) }
-    },
-    renderFooter: function(HTMLRow){
-      this.footer.appendChild(HTMLRow);
-    },
-    rowFromArray: function (array) {
-        let row = this.body.insertRow();
-        array.forEach((elem)=>{
-            let cell = row.insertCell();
-        })
-    },
-    setTableClass: function(cssClass){
-        this.table.classList.toggle(cssClass)
-    },
-    setColumnHeaders: function(array){
-        array.forEach((colHeader)=>{
-            const th = document.createElement('th');
-            th.setAttribute('scope','col');
-            th.textContent = colHeader;
-            this.HTMLhead.rows.item(0).appendChild(th);
-        });
-        const th = document.createElement('th');
-        th.setAttribute('scope','col');
-        this.HTMLhead.rows.item(0).appendChild(th);
     },
 };
 

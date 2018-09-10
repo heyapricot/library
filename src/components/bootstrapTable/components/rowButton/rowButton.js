@@ -1,4 +1,4 @@
-function RowButton(fontAwesomeClassArray, cssClassArray, clickFunction){
+function RowButton(fontAwesomeClassArray = ["fas", "fa-check"], cssClassArray = ["btn", "btn-success"], clickFunction){
     this.HTML = document.createElement('button');
     this.initialize(fontAwesomeClassArray, cssClassArray, clickFunction);
 }

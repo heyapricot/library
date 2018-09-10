@@ -1,27 +1,35 @@
-const {RowButton} = require('../rowButton/rowButton');
-
-function Row(HTMLRow = document.createElement('tr'), parentTable, iconClass = ["fas", "fa-trash"]){
-    this.button = new RowButton(iconClass, ["btn", "btn-danger"]);
-    this.HTML = HTMLRow;
-    this.parentTable = parentTable;
-    this.inititalize();
+function Row(content, parent){
+    this.content = [...content];
+    this.HTML = document.createElement('tr');
+    this.parent = parent;
+    this.initialize();
 }
-
 Row.prototype = {
-    inititalize: function(){
-        this.button.setClickFunction(this.removeFromTable.bind(this));
-        this.attachButton();
+    initialize: function(){
+        this.content.forEach((cellContent)=>{
+           this.addCell(cellContent);
+        });
     },
-    attachButton: function(){
-        let button = this.button.HTML;
+    addCell: function(content){
         let cell = document.createElement('td');
-        cell.appendChild(button);
+        if(typeof content === 'string'){
+            cell.textContent = content;
+        }
+        else {
+            let div = document.createElement('div');
+            ["d-flex", "justify-content-center"].forEach((cssClass)=>{
+                div.classList.toggle(cssClass);
+            });
+            div.appendChild(content.HTML);
+            cell.appendChild(div);
+        }
         this.HTML.appendChild(cell);
     },
     getIndex: function(){
         let index = 0;
         let child = this.HTML;
         while((child = child.previousSibling) != null)
+            console.log("Shoud say hello");
             index++;
         return index;
     },
@@ -31,7 +39,7 @@ Row.prototype = {
             this.parentTable.lastDeletedRowIndex = index;
         }
         this.HTML.parentNode.removeChild(this.HTML);
-    }
+    },
 };
 
 module.exports = {
