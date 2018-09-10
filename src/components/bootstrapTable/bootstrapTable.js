@@ -27,6 +27,12 @@ BootstrapTable.prototype = {
         this.setupHeader();
         this.setupFooter();
     },
+    addHeader: function(str){
+        let headerRow = this.header.HTML.firstChild;
+        let headerCell = document.createElement('th');
+        headerCell.textContent = str;
+        headerRow.appendChild(headerCell);
+    },
     deleteRow: function(index){
         this.HTML.deleteRow(index);
     },
