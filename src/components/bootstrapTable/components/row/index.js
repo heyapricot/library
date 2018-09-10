@@ -20,11 +20,13 @@ const setupDelButton= function(){
 const setupToggleButton = function(){
     const modifyRowContent = function(row, button){
         let newContent = [...row.content];
+        console.log("Row values are: " + row.values());
         let index = newContent.indexOf(button);
-        console.log("Button is at index " + index);
+        console.log("I'm row#" + row.getIndex());
+        console.log("Button is column#" + index);
     };
-    let button = new RowButton(["fas","fa-book"],["btn", "btn-primary"]);
-    const wrapper = function () {modifyRowContent(row,button)}
+    let button = new RowButton(["fas","fa-book"],["btn", "btn-primary"], true);
+    const wrapper = function () {modifyRowContent(row,button)};
     button.setClickFunction(wrapper);
     return button;
 };

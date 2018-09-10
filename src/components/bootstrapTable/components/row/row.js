@@ -40,6 +40,20 @@ Row.prototype = {
         }
         this.HTML.parentNode.removeChild(this.HTML);
     },
+    values: function(){
+        let output = [];
+        this.content.forEach((element)=>{
+            let value = NaN;
+            if(typeof element === 'string'){
+                value = element;
+            }
+            else {
+                value = element.value;
+            }
+            output.push(value);
+        });
+        return output;
+    }
 };
 
 module.exports = {
