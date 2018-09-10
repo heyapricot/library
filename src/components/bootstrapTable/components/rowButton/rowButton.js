@@ -1,4 +1,6 @@
 function RowButton(fontAwesomeClassArray = ["fas", "fa-check"], cssClassArray = ["btn", "btn-success"], clickFunction){
+    this.activeStatus = true;
+    this.btnClass = cssClassArray.find(value => /btn-\w+/.test(value));
     this.HTML = document.createElement('button');
     this.initialize(fontAwesomeClassArray, cssClassArray, clickFunction);
 }
@@ -21,7 +23,13 @@ RowButton.prototype = {
         array.forEach((cssClass)=>{
             this.HTML.classList.toggle(cssClass);
         })
+    },
+    toggleAppearance: function() {
+        this.HTML.classList.toggle(this.btnClass);
+        this.HTML.classList.toggle('btn-secondary');
+        this.activeStatus = !this.activeStatus;
     }
+
 };
 
 module.exports = {

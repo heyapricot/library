@@ -4,15 +4,28 @@ function RowPlaceholder(headers){
     this.headers = headers;
     this.HTML = document.createElement('tr');
     this.inputFields = [];
-    this.button = new RowButton(["fas", "fa-plus"], ["btn", "btn-success"]);
+    this.buttons = [new RowButton(["fas", "fa-check"], ["btn", "btn-success"]), new RowButton(["fas", "fa-plus"], ["btn", "btn-primary"])];
     this.initialize();
 }
 
 RowPlaceholder.prototype = {
     initialize: function(){
         this.headers.forEach((header)=>{ this.inputFields.push(this.renderInputField(header))});
-        this.inputFields.forEach((inputField)=>{this.renderCell(inputField)});
-        this.renderCell(this.button.HTML);
+        this.inputFields.forEach((inputField)=>{
+            this.HTML.appendChild(this.createCell(inputField));
+        });
+        this.buttons.forEach((button)=>{
+           let div = document.createElement('div');
+           ["d-flex", "justify-content-center"].forEach((cssClass)=>{div.classList.toggle(cssClass)});
+           div.appendChild(button.HTML);
+           let cell = this.createCell(div);
+           this.HTML.appendChild(cell);
+        });
+    },
+    createCell: function(child){
+        let cell = document.createElement('td');
+        cell.appendChild(child);
+        return cell;
     },
     createRow: function(array){
         let row = document.createElement('tr');
@@ -34,9 +47,7 @@ RowPlaceholder.prototype = {
         input.setAttribute('placeholder', placeholder);
         return input;
     },
-    renderCell: function(child){
-        let cell = document.createElement('td');
-        cell.appendChild(child);
+    renderCell: function(cell){
         this.HTML.appendChild(cell);
     }
 };
