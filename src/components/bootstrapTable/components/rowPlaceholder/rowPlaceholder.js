@@ -1,10 +1,11 @@
 const {RowButton} = require('../rowButton/rowButton');
+const {Row} = require('../row/row');
 
 function RowPlaceholder(headers){
     this.headers = headers;
     this.HTML = document.createElement('tr');
     this.inputFields = [];
-    this.buttons = [new RowButton(["fas", "fa-check"], ["btn", "btn-success"]), new RowButton(["fas", "fa-plus"], ["btn", "btn-primary"])];
+    this.buttons = [new RowButton(["fas", "fa-check"], ["btn", "btn-success"], true), new RowButton(["fas", "fa-plus"], ["btn", "btn-primary"])];
     this.initialize();
 }
 
@@ -27,13 +28,13 @@ RowPlaceholder.prototype = {
         cell.appendChild(child);
         return cell;
     },
-    createRow: function(array){
-        let row = document.createElement('tr');
-        array.forEach((inputValue)=>{
-            let cell = document.createElement('td');
-            cell.textContent = inputValue;
-            row.appendChild(cell);
-        });
+    createRow: function(){
+        let contents = this.fieldContent(this.inputFields);
+        contents.push(new RowButton(["fas", "fa-check"], ["btn", "btn-success"], true));
+        let row = new Row(contents);
+        let button = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
+        button.setClickFunction(row.selfdestruct.bind(row));
+        row.addCell(button);
         return row;
     },
     fieldContent: function(array){

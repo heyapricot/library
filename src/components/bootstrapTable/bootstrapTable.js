@@ -1,4 +1,5 @@
 const {Row} = require('./components/row/row');
+const {RowButton} = require('./components/rowButton/rowButton');
 const {RowPlaceholder} = require('./components/rowPlaceholder/rowPlaceholder');
 
 function BootstrapTable(headers){
@@ -12,8 +13,10 @@ function BootstrapTable(headers){
         HTML: this.HTML.createTBody(),
     };
     this.footer ={
-        content: {},
-        HTML: this.HTML.createTFoot()
+        content: {
+            rowPlaceholder: NaN
+        },
+        HTML: this.HTML.createTFoot(),
     };
     this.initialize();
 }
@@ -23,10 +26,6 @@ BootstrapTable.prototype = {
         this.setupTable();
         this.setupHeader();
         this.setupFooter();
-    },
-    addRow: function(parent){
-        let row = new Row(this);
-        parent.HTML.appendChild(row.HTML);
     },
     deleteRow: function(index){
         this.HTML.deleteRow(index);
@@ -51,10 +50,6 @@ BootstrapTable.prototype = {
         ["table", "table-dark"].forEach((cssClass)=>{
             this.HTML.classList.toggle(cssClass);
         });
-    },
-    newRowFromPlaceholder: function(){
-        let inputArray = this.rowPlaceholder.fieldContent(this.rowPlaceholder.inputFields);
-        if (!inputArray.includes("")) { this.addRow(this.rowPlaceholder.createRow(inputArray)) }
     },
 };
 

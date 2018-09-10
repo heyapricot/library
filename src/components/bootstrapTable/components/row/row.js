@@ -40,6 +40,9 @@ Row.prototype = {
         }
         this.HTML.parentNode.removeChild(this.HTML);
     },
+    selfdestruct: function(){
+        this.HTML.parentNode.removeChild(this.HTML);
+    },
     values: function(){
         let output = [];
         this.content.forEach((element)=>{
@@ -57,5 +60,5 @@ Row.prototype = {
 };
 
 module.exports = {
-    Row: Row
+    Row: Row,
 };
