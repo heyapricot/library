@@ -28,9 +28,9 @@ Row.prototype = {
     getIndex: function(){
         let index = 0;
         let child = this.HTML;
-        while((child = child.previousSibling) != null)
-            console.log("Shoud say hello");
+        while((child = child.previousSibling) != null){
             index++;
+        }
         return index;
     },
     removeFromTable: function (){
@@ -41,6 +41,7 @@ Row.prototype = {
         this.HTML.parentNode.removeChild(this.HTML);
     },
     selfdestruct: function(){
+        console.log("Bye bye #" + this.getIndex());
         this.HTML.parentNode.removeChild(this.HTML);
     },
     values: function(){

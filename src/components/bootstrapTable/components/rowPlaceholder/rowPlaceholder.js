@@ -30,11 +30,15 @@ RowPlaceholder.prototype = {
     },
     createRow: function(){
         let contents = this.fieldContent(this.inputFields);
-        contents.push(new RowButton(["fas", "fa-check"], ["btn", "btn-success"], true));
+        let tbIndex = contents.length;
+        let toggleButton = new RowButton(["fas", "fa-check"], ["btn", "btn-success"], true);
+        contents.push(toggleButton);
         let row = new Row(contents);
-        let button = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
-        button.setClickFunction(row.selfdestruct.bind(row));
-        row.addCell(button);
+        let TB = row.content[row.content.length - 1];
+        TB.setClickFunction(function(){toggleFn(row)}.bind(row));
+        let delButton = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
+        delButton.setClickFunction(row.selfdestruct.bind(row));
+        row.addCell(delButton);
         return row;
     },
     fieldContent: function(array){
@@ -52,6 +56,10 @@ RowPlaceholder.prototype = {
         this.HTML.appendChild(cell);
     }
 };
+
+function toggleFn(row){
+    console.log("I'm row#" + row.getIndex())
+}
 
 module.exports = {
     RowPlaceholder: RowPlaceholder

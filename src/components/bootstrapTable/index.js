@@ -1,4 +1,5 @@
 const {BootstrapTable} = require('./bootstrapTable');
+
 const createRowForBT = function(RowPlaceholder, BootstrapTable){
     let row = RowPlaceholder.createRow();
     row.parent = BootstrapTable;
