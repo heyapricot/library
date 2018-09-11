@@ -2,13 +2,20 @@ const {Book, addBookToLibrary, bookToHTMLTableRow, deleteBookFromLibrary} = requ
 const {BootstrapTable} = require('./components/bootstrapTable/bootstrapTable');
 
 const mainSection = document.querySelector('#main');
-const headers = ["Title", "Author", "# of Pages", "is Read?"];
-let library = [
-    new Book("Turtles All The Way Down", "John Green", 298),
-    new Book("The Fault in Our Stars", "John Green", 300)
-];
-let btable = new BootstrapTable(headers);
-btable.setTableClass('table-dark');
+
+const testDelete = function(index){
+    console.log("this was defined in src/index. Bye bye row#" + index);
+};
+
+const createRowForBT = function(row, BootstrapTable){
+    let newRow = row;
+    newRow.parent = BootstrapTable;
+    //const testDeleteWrapper = function(){testDelete(newRow.getIndex())};
+    //newRow.deleteButton.setClickFunction(testDeleteWrapper);
+    newRow.deleteCallback = (index)=>{console.log("I'm the callback and row#" + index + "was killed")};
+    BootstrapTable.body.HTML.appendChild(newRow.HTML);
+};
+
 let buttonFunction = function(){
     let inputArray = this.rowPlaceholder.fieldContent(this.rowPlaceholder.inputFields);
     if (!inputArray.includes("")) {
@@ -18,13 +25,25 @@ let buttonFunction = function(){
         console.log(library);
     }
 };
-btable.rowPlaceholder.button.setClickFunction(buttonFunction.bind(btable));
-let del = function(){
-    library = deleteBookFromLibrary(btable.lastDeletedRowIndex,library);
-    console.log(library);
-};
-btable.rowFunction = del;
 
-library.forEach((book)=>{btable.addRow(bookToHTMLTableRow(book))});
 
-mainSection.appendChild(btable.table);
+const headers = ["Title", "Author", "# of Pages"];
+let library = [
+    new Book("Turtles All The Way Down", "John Green", 298),
+    new Book("The Fault in Our Stars", "John Green", 300)
+];
+let btable = new BootstrapTable(headers);
+btable.addHeader("is Read?");
+let rpWrapper = function(){createRowForBT(btable.footer.content.rowPlaceholder.createRow(), btable)};
+btable.footer.content.rowPlaceholder.buttons[1].setClickFunction(rpWrapper);
+
+//btable.rowPlaceholder.button.setClickFunction(buttonFunction.bind(btable));
+
+//btable.rowFunction = del;
+
+// library.forEach((book)=>{
+//     let row = btable.footer.content.rowPlaceholder.createRow(Object.values(book));
+//     createRowForBT(row,btable);
+// });
+
+mainSection.appendChild(btable.HTML);

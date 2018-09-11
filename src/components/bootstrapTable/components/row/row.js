@@ -1,5 +1,9 @@
+const {RowButton} = require('../rowButton/rowButton');
+
 function Row(content, parent){
     this.content = [...content];
+    this.deleteButton = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
+    this.deleteCallback = NaN;
     this.HTML = document.createElement('tr');
     this.parent = parent;
     this.initialize();
@@ -9,6 +13,7 @@ Row.prototype = {
         this.content.forEach((cellContent)=>{
            this.addCell(cellContent);
         });
+        this.setupDeleteButton();
     },
     addCell: function(content){
         let cell = document.createElement('td');
@@ -40,9 +45,16 @@ Row.prototype = {
         }
         this.HTML.parentNode.removeChild(this.HTML);
     },
-    selfdestruct: function(){
-        console.log("Bye bye #" + this.getIndex());
+    selfdestruct: function(callback = this.deleteCallback){
+        const idx = this.getIndex();
+        console.log("Bye bye #" + idx);
         this.HTML.parentNode.removeChild(this.HTML);
+        callback(idx);
+        return idx;
+    },
+    setupDeleteButton: function(){
+        this.deleteButton.setClickFunction(this.selfdestruct.bind(this));
+        this.addCell(this.deleteButton);
     },
     values: function(){
         let output = [];

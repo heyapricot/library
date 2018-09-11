@@ -28,17 +28,13 @@ RowPlaceholder.prototype = {
         cell.appendChild(child);
         return cell;
     },
-    createRow: function(){
-        let contents = this.fieldContent(this.inputFields);
+    createRow: function(contents = this.fieldContent(this.inputFields)){
         let tbIndex = contents.length;
         let toggleButton = new RowButton(["fas", "fa-check"], ["btn", "btn-success"], true);
         contents.push(toggleButton);
         let row = new Row(contents);
         let TB = row.content[row.content.length - 1];
         TB.setClickFunction(function(){toggleFn(row)}.bind(row));
-        let delButton = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
-        delButton.setClickFunction(row.selfdestruct.bind(row));
-        row.addCell(delButton);
         return row;
     },
     fieldContent: function(array){
@@ -58,7 +54,8 @@ RowPlaceholder.prototype = {
 };
 
 function toggleFn(row){
-    console.log("I'm row#" + row.getIndex())
+    console.log("I'm row#" + row.getIndex());
+    console.log("Row values are " + row.values());
 }
 
 module.exports = {

@@ -18,6 +18,8 @@ function BootstrapTable(headers){
         },
         HTML: this.HTML.createTFoot(),
     };
+    this.lastDeletedRowIndex = NaN;
+    this.lastUpdatedRowIndex = NaN;
     this.initialize();
 }
 

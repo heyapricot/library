@@ -8,10 +8,12 @@ function Book(title, author, pageQty) {
     }
 }
 
-Book.prototype.info = function(){
-    let isRead;
-    this.isRead ? isRead = "already read" : isRead = "not read yet";
-    return this.title + " by " + this.author + ", " + pageQty + " pages, " + isRead;
+Book.prototype = {
+    info: function(){
+        let isRead;
+        this.isRead ? isRead = "already read" : isRead = "not read yet";
+        return this.title + " by " + this.author + ", " + pageQty + " pages, " + isRead;
+    }
 };
 
 function addBookToLibrary(book,library){
