@@ -7,11 +7,18 @@ const testDelete = function(table){
     console.log("this was defined in src/index. Bye bye row#" + table.lastDeletedRowIndex);
 };
 
+const updateLibrary = function(table){
+    console.log("Row#" + table.lastUpdatedRowIndex + " was updated");
+};
+
 const createRowForBT = function(row, BootstrapTable){
     let newRow = row;
     newRow.parent = BootstrapTable;
     const testDeleteWrapper = function(){testDelete(BootstrapTable)};
     newRow.deleteButton.setClickFunction(testDeleteWrapper);
+    newRow.content[newRow.content.length - 1].setClickFunction(function () {
+       updateLibrary(BootstrapTable);
+    });
     BootstrapTable.body.HTML.appendChild(newRow.HTML);
 };
 
