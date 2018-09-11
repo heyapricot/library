@@ -3,16 +3,15 @@ const {BootstrapTable} = require('./components/bootstrapTable/bootstrapTable');
 
 const mainSection = document.querySelector('#main');
 
-const testDelete = function(index){
-    console.log("this was defined in src/index. Bye bye row#" + index);
+const testDelete = function(table){
+    console.log("this was defined in src/index. Bye bye row#" + table.lastDeletedRowIndex);
 };
 
 const createRowForBT = function(row, BootstrapTable){
     let newRow = row;
     newRow.parent = BootstrapTable;
-    //const testDeleteWrapper = function(){testDelete(newRow.getIndex())};
-    //newRow.deleteButton.setClickFunction(testDeleteWrapper);
-    newRow.deleteCallback = (index)=>{console.log("I'm the callback and row#" + index + "was killed")};
+    const testDeleteWrapper = function(){testDelete(BootstrapTable)};
+    newRow.deleteButton.setClickFunction(testDeleteWrapper);
     BootstrapTable.body.HTML.appendChild(newRow.HTML);
 };
 

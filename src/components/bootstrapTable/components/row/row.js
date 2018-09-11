@@ -3,7 +3,6 @@ const {RowButton} = require('../rowButton/rowButton');
 function Row(content, parent){
     this.content = [...content];
     this.deleteButton = new RowButton(["fas", "fa-trash"], ["btn", "btn-danger"]);
-    this.deleteCallback = NaN;
     this.HTML = document.createElement('tr');
     this.parent = parent;
     this.initialize();
@@ -45,11 +44,13 @@ Row.prototype = {
         }
         this.HTML.parentNode.removeChild(this.HTML);
     },
-    selfdestruct: function(callback = this.deleteCallback){
+    selfdestruct: function(){
         const idx = this.getIndex();
         console.log("Bye bye #" + idx);
         this.HTML.parentNode.removeChild(this.HTML);
-        callback(idx);
+        if (this.parent != NaN){
+            this.parent.lastDeletedRowIndex = idx;
+        }
         return idx;
     },
     setupDeleteButton: function(){
