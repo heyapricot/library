@@ -2,7 +2,7 @@ function Book(title, author, pageQty) {
     this.title = title;
     this.author = author;
     this.pageQty = pageQty;
-    this.isRead = false;
+    this.isRead = true;
     Book.fromInput = function(...input) {
         return new Book(input[0], input[1], input[2]);
     }
@@ -35,9 +35,14 @@ function bookToHTMLTableRow(book){
     return row;
 }
 
+function bookFromInput(...input){
+    return new Book(input[0], input[1], input[2]);
+}
+
 module.exports = {
     Book: Book,
     addBookToLibrary: addBookToLibrary,
+    bookFromInput: bookFromInput,
     bookToHTMLTableRow: bookToHTMLTableRow,
     deleteBookFromLibrary: deleteBookFromLibrary
 };

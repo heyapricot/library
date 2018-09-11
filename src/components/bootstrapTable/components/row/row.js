@@ -46,7 +46,6 @@ Row.prototype = {
     },
     selfdestruct: function(){
         const idx = this.getIndex();
-        console.log("Bye bye #" + idx);
         this.HTML.parentNode.removeChild(this.HTML);
         if (this.parent != NaN){
             this.parent.lastDeletedRowIndex = idx;

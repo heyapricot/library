@@ -31,6 +31,7 @@ RowPlaceholder.prototype = {
     createRow: function(contents = this.fieldContent(this.inputFields)){
         let tbIndex = contents.length;
         let toggleButton = new RowButton(["fas", "fa-check"], ["btn", "btn-success"], true);
+
         contents.push(toggleButton);
         let row = new Row(contents);
         let TB = row.content[row.content.length - 1];
@@ -57,10 +58,7 @@ function toggleFn(row){
     let idx = row.getIndex();
     if(row.parent != NaN){
         row.parent.lastUpdatedRowIndex = idx;
-        console.log("I have a parent and my index is: " + row.parent.lastUpdatedRowIndex)
     }
-    console.log("I'm row#" + idx);
-    console.log("Row values are " + row.values());
 }
 
 module.exports = {
