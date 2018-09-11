@@ -54,7 +54,12 @@ RowPlaceholder.prototype = {
 };
 
 function toggleFn(row){
-    console.log("I'm row#" + row.getIndex());
+    let idx = row.getIndex();
+    if(row.parent != NaN){
+        row.parent.lastUpdatedRowIndex = idx;
+        console.log("I have a parent and my index is: " + row.parent.lastUpdatedRowIndex)
+    }
+    console.log("I'm row#" + idx);
     console.log("Row values are " + row.values());
 }
 
